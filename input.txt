@@ -1,3 +1,3 @@
 lenna_pepper.bmp
-lenna_pepper_A.bmp
+lenna_pepper_G_IIR.bmp
 3
