@@ -32,24 +32,65 @@ unsigned char GaussianFilter(unsigned char aPixel[MAX_MSK_SIZE * MAX_MSK_SIZE])
 {
 	// ガウシアンフィルタ アルゴリズムを記述
 	// 返り値は仮なので変更してOKです
+	double weightSum = 0.0;
+	double filteredPixel = 0.0;
 
-	return 0;
+	// ガウシアンフィルタの重み付けと重みの合計を計算
+	for (int i = 0; i < MSK_SIZE; i++)
+	{
+		for (int j = 0; j < MSK_SIZE; j++)
+		{
+			int x = j - (MSK_SIZE - 1) / 2;
+			int y = i - (MSK_SIZE - 1) / 2;
+
+			double weight = exp(-(x * x + y * y) / (2 * SIGMA * SIGMA));
+			weightSum += weight;
+
+			filteredPixel += weight * aPixel[i * MSK_SIZE + j];
+		}
+	}
+
+	// 正規化した値を返す
+	return (unsigned char)(filteredPixel / weightSum);
 }
 //--------------------------------------------------------------------------------
 unsigned char MedianFilter(unsigned char aPixel[MAX_MSK_SIZE * MAX_MSK_SIZE])
 {
 	// メディアンフィルタ アルゴリズムを記述
 	// 返り値は仮なので変更してOKです
+	// ピクセル値のソート
+	for (int i = 0; i < MSK_SIZE * MSK_SIZE - 1; i++)
+	{
+		for (int j = 0; j < MSK_SIZE * MSK_SIZE - i - 1; j++)
+		{
+			if (aPixel[j] > aPixel[j + 1])
+			{
+				// ピクセル値の入れ替え
+				unsigned char temp = aPixel[j];
+				aPixel[j] = aPixel[j + 1];
+				aPixel[j + 1] = temp;
+			}
+		}
+	}
 
-	return 0;
+	// 中央値を返す
+	return aPixel[(MSK_SIZE * MSK_SIZE) / 2];
 }
 //--------------------------------------------------------------------------------
 unsigned char AverageFilter(unsigned char aPixel[MAX_MSK_SIZE * MAX_MSK_SIZE])
 {
 	// 平均フィルタ アルゴリズムを記述
 	// 返り値は仮なので変更してOKです
+	int sum = 0;
 
-	return 0;
+	// ピクセル値の合計を計算
+	for (int i = 0; i < MSK_SIZE * MSK_SIZE; i++)
+	{
+		sum += aPixel[i];
+	}
+
+	// 平均値を返す
+	return sum / (MSK_SIZE * MSK_SIZE);
 }
 //--------------------------------------------------------------------------------
 
