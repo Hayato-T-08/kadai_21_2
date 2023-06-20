@@ -153,7 +153,7 @@ int main(int argc, char *argv[])
 				{
 					aPixel[k] = aBitmapIn[i + k / MSK_SIZE - (MSK_SIZE - 1) / 2][j + k % MSK_SIZE - (MSK_SIZE - 1) / 2]; // マスク生成
 				}
-				aBitmapOut[i][j] = MedianFilter(aPixel); // 例: メディアンフィルタをかける
+				aBitmapOut[i][j] = AverageFilter(aPixel); // 例: メディアンフィルタをかける
 			}
 		}
 	}

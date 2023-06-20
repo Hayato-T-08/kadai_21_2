@@ -1,0 +1,3 @@
+lenna_pepper.bmp
+lenna_pepper_A.bmp
+3
